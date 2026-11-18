@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0d1117">
+    <meta name="description" content="Free daily programming game. Guess what a short snippet of code prints. Five puzzles a day, three tries each.">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <title>Terminle</title>
+    <link rel="canonical" href="https://username.github.io/Terminle/">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🖥️%3C/text%3E%3C/svg%3E">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Terminle">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:title" content="Terminle – guess what the code prints">
+    <meta property="og:description" content="Guess what the code prints. Five new snippets every day, three tries each.">
+    <meta property="og:url" content="https://username.github.io/Terminle/">
+    <meta property="og:image" content="https://username.github.io/Terminle/og.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Terminle, a daily game where you guess what the code prints">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Terminle – guess what the code prints">
+    <meta name="twitter:description" content="Guess what the code prints. Five new snippets every day, three tries each.">
+    <meta name="twitter:url" content="https://username.github.io/Terminle/">
+    <meta name="twitter:image" content="https://username.github.io/Terminle/og.png">
+    <meta name="twitter:image:alt" content="Terminle, a daily game where you guess what the code prints">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Terminle",
+        "url": "https://username.github.io/Terminle/",
+        "description": "Free daily programming game. Guess what a short snippet of code prints. Five puzzles a day, three tries each.",
+        "applicationCategory": "GameApplication",
+        "operatingSystem": "Any",
+        "browserRequirements": "Requires JavaScript",
+        "inLanguage": "en",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        }
+    }
+    </script>
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js" defer></script>
+</head>
+<body>
+    <main>
+        <noscript>
+            <p>Terminle is a free daily programming game. Turn on JavaScript to play. Each day has five snippets of code; you guess what they print.</p>
+        </noscript>
+        <header class="top">
+            <div>
+                <h1>Terminle</h1>
+                <p class="subtitle">What does this code print?<span id="daynum"></span></p>
+            </div>
+            <span id="streak" class="streak" title="Your streak" hidden></span>
+        </header>
+
+        <div id="countdown"></div>
+        <div id="progress" class="progress" role="list" aria-label="Today's puzzles"></div>
+
+        <div id="play">
+            <section id="window" class="window" aria-label="Code snippet">
+                <div class="window-bar">
+                    <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                    <span id="filename" class="filename">puzzle.js</span>
+                    <span id="difficulty" class="badge"></span>
+                </div>
+                <pre id="code" tabindex="0"></pre>
+            </section>
+
+            <div id="info" class="info"></div>
+
+            <label class="sr-only" for="guess">Your guess</label>
+            <input type="text" id="guess" placeholder="Type the output…" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="go" disabled>
+        </div>
+
+        <p id="result" aria-live="polite"></p>
+        <ul id="wrongguesses"></ul>
+
+        <div class="actions">
+            <button id="next" type="button" hidden>Next</button>
+            <button id="share" type="button" hidden>Share</button>
+        </div>
+
+        <details class="howto">
+            <summary>How to play</summary>
+            <ul>
+                <li>Five snippets a day, from easy to tricky.</li>
+                <li>Type what the code prints. Capitals count. Keep a space between values (2 4 is not 24). Single and double quotes both count.</li>
+                <li>You get 3 tries per snippet.</li>
+                <li>Does it crash? Type the error name, like <code>TypeError</code>.</li>
+                <li>A new set appears every day at midnight.</li>
+            </ul>
+        </details>
+    </main>
+</body>
+</html>

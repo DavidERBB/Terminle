@@ -1,0 +1,262 @@
+[
+  [
+    {
+      "language": "Python",
+      "difficulty": "Easy",
+      "code": "print(len(\"hello world, hello devs\".split()))",
+      "answer": "4",
+      "explanation": "split() with no argument splits on whitespace: 'hello', 'world,', 'hello', 'devs'."
+    },
+    {
+      "language": "JavaScript",
+      "difficulty": "Medium",
+      "code": "console.log([1, 2, 3, 4].map(n => n * 2).filter(n => n > 4).length);",
+      "answer": "2",
+      "explanation": "map gives [2, 4, 6, 8], filter keeps only 6 and 8."
+    },
+    {
+      "language": "Python",
+      "difficulty": "Hard",
+      "code": "def add(x, items=[]):\n    items.append(x)\n    return len(items)\n\nadd(1)\nadd(2)\nprint(add(3))",
+      "answer": "3",
+      "explanation": "Default arguments are created once. Every call shares the same list."
+    },
+    {
+      "language": "JavaScript",
+      "difficulty": "Expert",
+      "code": "console.log(1);\nsetTimeout(() => console.log(2), 0);\nPromise.resolve().then(() => console.log(3));\nconsole.log(4);",
+      "answer": "1 4 3 2",
+      "explanation": "Sync code first, then microtasks (Promises), then macrotasks (setTimeout)."
+    },
+    {
+      "language": "JavaScript",
+      "difficulty": "Quirk",
+      "code": "console.log([10, 1, 2].sort().join(\",\"));",
+      "answer": "1,10,2",
+      "explanation": "sort() compares as strings by default, and \"10\" comes before \"2\" alphabetically."
+    }
+  ],
+  [
+    {
+      "language": "Python",
+      "difficulty": "Easy",
+      "code": "print(\"ha\" * 3 + \"!\")",
+      "answer": "hahaha!",
+      "explanation": "Multiplying a string by a number repeats it."
+    },
+    {
+      "language": "JavaScript",
+      "difficulty": "Medium",
+      "code": "const a = [1, 2, 3];\nconst b = a;\nb.push(4);\nconsole.log(a.length);",
+      "answer": "4",
+      "explanation": "b is not a copy; it points to the same array as a."
+    },
+    {
+      "language": "Go",
+      "difficulty": "Hard",
+      "code": "a := []int{1, 2, 3}\nb := a[:2]\nb = append(b, 99)\nfmt.Println(a)",
+      "answer": "[1 2 99]",
+      "explanation": "b shares a's underlying array. There's spare capacity, so append overwrites a[2]."
+    },
+    {
+      "language": "Python",
+      "difficulty": "Expert",
+      "code": "fs = [lambda: i for i in range(3)]\nprint([f() for f in fs])",
+      "answer": "[2, 2, 2]",
+      "explanation": "The lambdas capture the variable i, not its value. By the time they run, i is 2."
+    },
+    {
+      "language": "JavaScript",
+      "difficulty": "Quirk",
+      "code": "console.log(typeof NaN);",
+      "answer": "number",
+      "explanation": "NaN means 'Not a Number', but its type is still number."
+    }
+  ],
+  [
+    {
+      "language": "C",
+      "difficulty": "Easy",
+      "code": "printf(\"%d\", 7 / 2);",
+      "answer": "3",
+      "explanation": "Dividing two ints is integer division: the remainder is dropped."
+    },
+    {
+      "language": "Python",
+      "difficulty": "Medium",
+      "code": "x = [1, 2, 3, 4, 5]\nprint(x[::-2])",
+      "answer": "[5, 3, 1]",
+      "explanation": "A step of -2 walks backwards from the end, taking every second element."
+    },
+    {
+      "language": "JavaScript",
+      "difficulty": "Hard",
+      "code": "var x = 1;\nfunction f() {\n  console.log(x);\n  var x = 2;\n}\nf();",
+      "answer": "undefined",
+      "explanation": "Hoisting: the local var x is moved to the top of the function, but not assigned yet."
+    },
+    {
+      "language": "C",
+      "difficulty": "Expert",
+      "code": "unsigned int a = 1;\nint b = -1;\nprintf(\"%s\", a > b ? \"yes\" : \"no\");",
+      "answer": "no",
+      "explanation": "b is converted to unsigned and becomes 4294967295, which is bigger than a."
+    },
+    {
+      "language": "Python",
+      "difficulty": "Quirk",
+      "code": "print(round(2.5), round(3.5))",
+      "answer": "2 4",
+      "explanation": "Python rounds halves to the nearest even number (banker's rounding)."
+    }
+  ],
+  [
+    {
+      "language": "JavaScript",
+      "difficulty": "Easy",
+      "code": "console.log(\"5\" * \"2\");",
+      "answer": "10",
+      "explanation": "* only works on numbers, so both strings are converted first."
+    },
+    {
+      "language": "Rust",
+      "difficulty": "Medium",
+      "code": "let x = 5;\nlet x = x * 2;\n{\n    let x = x + 1;\n    print!(\"{} \", x);\n}\nprintln!(\"{}\", x);",
+      "answer": "11 10",
+      "explanation": "Shadowing: each let creates a new x. The one inside the block disappears when the block ends."
+    },
+    {
+      "language": "Python",
+      "difficulty": "Hard",
+      "code": "a = [[0] * 3] * 3\na[0][0] = 1\nprint(sum(row[0] for row in a))",
+      "answer": "3",
+      "explanation": "* 3 copies the reference. All three rows are the same list."
+    },
+    {
+      "language": "Go",
+      "difficulty": "Expert",
+      "code": "x := 1\ndefer fmt.Print(x)\nfor i := 0; i < 3; i++ {\n\tdefer fmt.Print(i)\n}\nx = 9\nfmt.Print(x)",
+      "answer": "92101",
+      "explanation": "9 prints first. Defers then run in reverse order (2, 1, 0), and x was already captured as 1 when deferred."
+    },
+    {
+      "language": "JavaScript",
+      "difficulty": "Quirk",
+      "code": "console.log(Math.max());",
+      "answer": "-Infinity",
+      "explanation": "With no arguments, max starts from the smallest possible value so any number beats it."
+    }
+  ],
+  [
+    {
+      "language": "Python",
+      "difficulty": "Easy",
+      "code": "print(10 // 3, 10 % 3)",
+      "answer": "3 1",
+      "explanation": "// is integer division, % is the remainder."
+    },
+    {
+      "language": "JavaScript",
+      "difficulty": "Medium",
+      "code": "console.log([1, 2, 3] + [4, 5]);",
+      "answer": "1,2,34,5",
+      "explanation": "+ turns both arrays into strings (\"1,2,3\" and \"4,5\") and concatenates them."
+    },
+    {
+      "language": "Python",
+      "difficulty": "Hard",
+      "code": "print(-7 // 2, -7 % 2)",
+      "answer": "-4 1",
+      "explanation": "Python's // floors towards negative infinity, not towards 0. The remainder takes the sign of the divisor."
+    },
+    {
+      "language": "JavaScript",
+      "difficulty": "Expert",
+      "code": "console.log([\"1\", \"2\", \"3\"].map(parseInt).join(\",\"));",
+      "answer": "1,NaN,NaN",
+      "explanation": "map also passes the index as the radix: parseInt(\"2\", 1) and parseInt(\"3\", 2) are NaN."
+    },
+    {
+      "language": "C",
+      "difficulty": "Quirk",
+      "code": "printf(\"%zu\", sizeof('a'));",
+      "answer": "4",
+      "explanation": "In C a character literal like 'a' has type int, not char. (In C++ it's 1.)"
+    }
+  ],
+  [
+    {
+      "language": "JavaScript",
+      "difficulty": "Easy",
+      "code": "console.log(\"abc\".split(\"\").reverse().join(\"\"));",
+      "answer": "cba",
+      "explanation": "Split into letters, reverse, join back together."
+    },
+    {
+      "language": "Python",
+      "difficulty": "Medium",
+      "code": "x = 0\nfor i in range(1, 6):\n    if i % 2:\n        continue\n    x += i\nprint(x)",
+      "answer": "6",
+      "explanation": "Odd numbers are skipped, so only 2 + 4 is added."
+    },
+    {
+      "language": "JavaScript",
+      "difficulty": "Hard",
+      "code": "console.log(0 ?? 5, 0 || 5);",
+      "answer": "0 5",
+      "explanation": "?? only replaces null and undefined. || replaces anything falsy, including 0."
+    },
+    {
+      "language": "Python",
+      "difficulty": "Expert",
+      "code": "d = {}\nd[1] = \"a\"\nd[1.0] = \"b\"\nd[True] = \"c\"\nprint(d)",
+      "answer": "{1: 'c'}",
+      "alternatives": ["{1: \"c\"}"],
+      "explanation": "1, 1.0 and True are equal and hash the same. The first key stays; the value gets overwritten. Python prints the string with single quotes."
+    },
+    {
+      "language": "Go",
+      "difficulty": "Quirk",
+      "code": "fmt.Println(len(\"héllo\"))",
+      "answer": "6",
+      "explanation": "len counts bytes, not characters. é is 2 bytes in UTF-8."
+    }
+  ],
+  [
+    {
+      "language": "C",
+      "difficulty": "Medium",
+      "code": "int a = 5;\nint b = a++ + 2;\nprintf(\"%d %d\", a, b);",
+      "answer": "6 7",
+      "explanation": "a++ uses the old value (5) and increments a afterwards."
+    },
+    {
+      "language": "JavaScript",
+      "difficulty": "Hard",
+      "code": "function counter() {\n  let c = 0;\n  return () => ++c;\n}\nconst a = counter();\nconst b = counter();\na(); a(); b();\nconsole.log(a() + b());",
+      "answer": "5",
+      "explanation": "Each counter has its own c. a() now returns 3, b() returns 2."
+    },
+    {
+      "language": "Rust",
+      "difficulty": "Hard",
+      "code": "let total: i32 = (1..=10)\n    .filter(|x| x % 3 == 0)\n    .map(|x| x * x)\n    .sum();\nprintln!(\"{}\", total);",
+      "answer": "126",
+      "explanation": "3, 6 and 9 survive: 9 + 36 + 81 = 126."
+    },
+    {
+      "language": "Python",
+      "difficulty": "Expert",
+      "code": "g = (x * 2 for x in range(5))\nprint(sum(g), sum(g))",
+      "answer": "20 0",
+      "explanation": "A generator can only be consumed once. The second sum gets nothing."
+    },
+    {
+      "language": "C",
+      "difficulty": "Quirk",
+      "code": "int arr[] = {10, 20, 30};\nprintf(\"%d\", 2[arr]);",
+      "answer": "30",
+      "explanation": "arr[2] is really *(arr + 2), which equals *(2 + arr), so 2[arr] works."
+    }
+  ]
+]

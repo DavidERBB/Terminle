@@ -1,0 +1,5 @@
+
+User-agent: *
+Allow: /
+
+Sitemap: https://DavidERBB.github.io/Terminle/sitemap.xml
