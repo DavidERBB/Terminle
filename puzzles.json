@@ -47,9 +47,9 @@
     {
       "language": "JavaScript",
       "difficulty": "Medium",
-      "code": "const a = [1, 2, 3];\nconst b = a;\nb.push(4);\nconsole.log(a.length);",
-      "answer": "4",
-      "explanation": "b is not a copy; it points to the same array as a."
+      "code": "console.log(\"banana\".replace(\"a\", \"o\"));",
+      "answer": "bonana",
+      "explanation": "With a string as the pattern, replace changes the first match only. The later a's stay."
     },
     {
       "language": "Go",
@@ -98,9 +98,9 @@
     {
       "language": "C",
       "difficulty": "Expert",
-      "code": "unsigned int a = 1;\nint b = -1;\nprintf(\"%s\", a > b ? \"yes\" : \"no\");",
-      "answer": "no",
-      "explanation": "b is converted to unsigned and becomes 4294967295, which is bigger than a."
+      "code": "printf(\"%d\", 017);",
+      "answer": "15",
+      "explanation": "A leading zero makes the literal octal. 1*8 + 7 is 15, not seventeen."
     },
     {
       "language": "Python",
@@ -128,9 +128,9 @@
     {
       "language": "Python",
       "difficulty": "Hard",
-      "code": "a = [[0] * 3] * 3\na[0][0] = 1\nprint(sum(row[0] for row in a))",
-      "answer": "3",
-      "explanation": "* 3 copies the reference. All three rows are the same list."
+      "code": "a = [1, 2, 3]\nprint(a.pop(), a.pop(), a)",
+      "answer": "3 2 [1]",
+      "explanation": "The arguments run left to right. Each pop takes the last item, then the list is printed."
     },
     {
       "language": "Go",
@@ -202,24 +202,26 @@
     {
       "language": "JavaScript",
       "difficulty": "Hard",
-      "code": "console.log(0 ?? 5, 0 || 5);",
-      "answer": "0 5",
-      "explanation": "?? only replaces null and undefined. || replaces anything falsy, including 0."
+      "code": "console.log(\"dev\".repeat(3).slice(2, 7));",
+      "answer": "vdevd",
+      "explanation": "repeat builds devdevdev. slice keeps from index 2 up to, but not including, 7."
     },
     {
       "language": "Python",
       "difficulty": "Expert",
       "code": "d = {}\nd[1] = \"a\"\nd[1.0] = \"b\"\nd[True] = \"c\"\nprint(d)",
       "answer": "{1: 'c'}",
-      "alternatives": ["{1: \"c\"}"],
+      "alternatives": [
+        "{1: \"c\"}"
+      ],
       "explanation": "1, 1.0 and True are equal and hash the same. The first key stays; the value gets overwritten. Python prints the string with single quotes."
     },
     {
       "language": "Go",
       "difficulty": "Quirk",
-      "code": "fmt.Println(len(\"héllo\"))",
-      "answer": "6",
-      "explanation": "len counts bytes, not characters. é is 2 bytes in UTF-8."
+      "code": "fmt.Println(strings.Fields(\"go  is   fun\"))",
+      "answer": "[go is fun]",
+      "explanation": "Fields splits on any run of whitespace and drops the empties. A slice of strings prints with spaces, not commas."
     }
   ],
   [
@@ -257,6 +259,857 @@
       "code": "int arr[] = {10, 20, 30};\nprintf(\"%d\", 2[arr]);",
       "answer": "30",
       "explanation": "arr[2] is really *(arr + 2), which equals *(2 + arr), so 2[arr] works."
+    }
+  ],
+  [
+    {
+      "language": "PHP",
+      "difficulty": "Easy",
+      "code": "echo strrev(\"live\");",
+      "answer": "evil",
+      "explanation": "strrev reverses the letters. This one reverses into a word."
+    },
+    {
+      "language": "Java",
+      "difficulty": "Medium",
+      "code": "System.out.println(\"5\" + 2);",
+      "answer": "52",
+      "explanation": "+ on a string concatenates. The number is turned into text first, so this is not addition."
+    },
+    {
+      "language": "Ruby",
+      "difficulty": "Hard",
+      "code": "word = \"stressed\"\nputs word.reverse.capitalize",
+      "answer": "Desserts",
+      "explanation": "reverse flips the letters to desserts, then capitalize raises the first one."
+    },
+    {
+      "language": "TypeScript",
+      "difficulty": "Expert",
+      "code": "function f(x: number = 1, y: number = x + 1): number {\n  return x + y;\n}\nconsole.log(f(), f(5));",
+      "answer": "3 11",
+      "explanation": "A later default may use an earlier parameter. f() is 1 + 2. f(5) is 5 + 6."
+    },
+    {
+      "language": "Bash",
+      "difficulty": "Quirk",
+      "code": "name=dev\necho '$name' \"$name\"",
+      "answer": "$name dev",
+      "explanation": "Single quotes are literal. Double quotes expand the variable."
+    }
+  ],
+  [
+    {
+      "language": "Kotlin",
+      "difficulty": "Easy",
+      "code": "println(listOf(1, 2, 3).sum())",
+      "answer": "6",
+      "explanation": "sum adds the list: 1 + 2 + 3."
+    },
+    {
+      "language": "Swift",
+      "difficulty": "Medium",
+      "code": "let text = \"Terminle\"\nprint(text.prefix(4).uppercased())",
+      "answer": "TERM",
+      "explanation": "prefix keeps the first four characters. uppercased then shouts them."
+    },
+    {
+      "language": "Lua",
+      "difficulty": "Hard",
+      "code": "print(\"5\" + \"2\")",
+      "answer": "7",
+      "explanation": "Lua's + is arithmetic, so both strings are converted to numbers and added."
+    },
+    {
+      "language": "C#",
+      "difficulty": "Expert",
+      "code": "int x = 1;\nConsole.WriteLine(x++ + x++ + x);",
+      "answer": "6",
+      "explanation": "Each x++ hands back the old value, then bumps x. The sum is 1 + 2 + 3."
+    },
+    {
+      "language": "Ruby",
+      "difficulty": "Quirk",
+      "code": "puts (1..3).to_a.inspect\nputs (1...3).to_a.inspect",
+      "answer": "[1, 2, 3] [1, 2]",
+      "explanation": "Two dots include the end, three dots stop before it. inspect shows the arrays those ranges become."
+    }
+  ],
+  [
+    {
+      "language": "SQLite",
+      "difficulty": "Easy",
+      "code": "SELECT SUBSTR('snippet', 4, 3);",
+      "answer": "ppe",
+      "explanation": "SUBSTR is 1-based. Three characters starting at the 4th are ppe. The answer is that one cell."
+    },
+    {
+      "language": "JavaScript",
+      "difficulty": "Medium",
+      "code": "const s = \"hello\";\nconsole.log(s.slice(1, -1));",
+      "answer": "ell",
+      "explanation": "slice(1, -1) drops the first character and the last one."
+    },
+    {
+      "language": "Go",
+      "difficulty": "Hard",
+      "code": "fmt.Println(strings.Index(\"golang\", \"lang\") + strings.Index(\"golang\", \"no\"))",
+      "answer": "1",
+      "explanation": "Index of lang is 2. A missing piece comes back as -1, and 2 + -1 is 1."
+    },
+    {
+      "language": "Rust",
+      "difficulty": "Expert",
+      "code": "let s = \"compiler\";\nprintln!(\"{}\", &s[s.len() - 2..]);",
+      "answer": "er",
+      "explanation": "len - 2 is where the last two bytes start. The range runs from there to the end of the string."
+    },
+    {
+      "language": "Python",
+      "difficulty": "Quirk",
+      "code": "print(\"abcabc\".partition(\"c\"))",
+      "answer": "('ab', 'c', 'abc')",
+      "explanation": "partition splits on the first match and keeps the separator. The later c stays in the tail."
+    }
+  ],
+  [
+    {
+      "language": "C",
+      "difficulty": "Easy",
+      "code": "printf(\"%d\", 5 % 2);",
+      "answer": "1",
+      "explanation": "% is the remainder. 5 divided by 2 leaves 1."
+    },
+    {
+      "language": "Haskell",
+      "difficulty": "Medium",
+      "code": "main = print (sum [1, 2, 3, 4])",
+      "answer": "10",
+      "explanation": "sum adds the list. 1 + 2 + 3 + 4 is 10."
+    },
+    {
+      "language": "Java",
+      "difficulty": "Hard",
+      "code": "System.out.println(\"puzzle\".substring(1, 4));",
+      "answer": "uzz",
+      "explanation": "substring's end index is exclusive. Indexes 1, 2 and 3 are u, z and z."
+    },
+    {
+      "language": "Elixir",
+      "difficulty": "Expert",
+      "code": "IO.inspect([1, 2, 3] -- [2, 9])",
+      "answer": "[1, 3]",
+      "explanation": "-- removes items in the right list from the left. 9 was never there, so only 2 disappears."
+    },
+    {
+      "language": "JavaScript",
+      "difficulty": "Quirk",
+      "code": "console.log(+\"42px\", parseInt(\"42px\"), Number(\"42px\"));",
+      "answer": "NaN 42 NaN",
+      "explanation": "A unary plus and Number want the whole text to be numeric. parseInt stops at the first bad character and keeps 42."
+    }
+  ],
+  [
+    {
+      "language": "Dart",
+      "difficulty": "Easy",
+      "code": "print(\"ha\" * 3);",
+      "answer": "hahaha",
+      "explanation": "Multiplying a string by a number repeats it."
+    },
+    {
+      "language": "Rust",
+      "difficulty": "Medium",
+      "code": "let v = vec![10, 20, 30];\nprintln!(\"{}\", v.iter().sum::<i32>());",
+      "answer": "60",
+      "explanation": "The three numbers add up to 60."
+    },
+    {
+      "language": "Ruby",
+      "difficulty": "Hard",
+      "code": "nums = [1, 2, 3, 4]\nputs nums.select(&:even?).map { |n| n * n }.sum",
+      "answer": "20",
+      "explanation": "2 and 4 remain. Their squares are 4 and 16, which add up to 20."
+    },
+    {
+      "language": "Go",
+      "difficulty": "Expert",
+      "code": "s := []int{1, 2, 3, 4}\ns = s[:2]\nfmt.Println(cap(s))",
+      "answer": "4",
+      "explanation": "Slicing off the end lowers the length, not the capacity. The backing array still holds four slots."
+    },
+    {
+      "language": "C",
+      "difficulty": "Quirk",
+      "code": "printf(\"%d\", 'A' + 1);",
+      "answer": "66",
+      "explanation": "A character is a number here. 'A' is 65 in ASCII, so one more is 66."
+    }
+  ],
+  [
+    {
+      "language": "Swift",
+      "difficulty": "Easy",
+      "code": "print(1...3)",
+      "answer": "1...3",
+      "explanation": "A closed range prints with three dots, meaning both ends are included."
+    },
+    {
+      "language": "TypeScript",
+      "difficulty": "Medium",
+      "code": "console.log([2, 4, 6].map(n => n / 2).join(\"+\"));",
+      "answer": "1+2+3",
+      "explanation": "map halves each number. join glues the results with a plus and nothing else."
+    },
+    {
+      "language": "Scala",
+      "difficulty": "Hard",
+      "code": "val xs = List(1, 2, 3, 4)\nprintln(xs.foldLeft(0)((a, b) => a - b))",
+      "answer": "-10",
+      "explanation": "foldLeft starts at 0 and keeps subtracting from the left. ((0 - 1) - 2) - 3 - 4 is -10."
+    },
+    {
+      "language": "Python",
+      "difficulty": "Expert",
+      "code": "print([n for n in range(10) if n % 3 == 0 and n])",
+      "answer": "[3, 6, 9]",
+      "explanation": "Multiples of 3 stay, but 0 is dropped: it is falsy, so the and fails."
+    },
+    {
+      "language": "Bash",
+      "difficulty": "Quirk",
+      "code": "echo $((2#1010))",
+      "answer": "10",
+      "explanation": "The 2# prefix means base 2. 1010 in binary is 8 + 2, which is 10."
+    }
+  ],
+  [
+    {
+      "language": "Lua",
+      "difficulty": "Easy",
+      "code": "print(#\"code\")",
+      "answer": "4",
+      "explanation": "# counts the characters in the string."
+    },
+    {
+      "language": "C#",
+      "difficulty": "Medium",
+      "code": "Console.WriteLine(\"puzzle\".Substring(1, 3));",
+      "answer": "uzz",
+      "explanation": "Substring takes a start and a length, not an end index. Three letters from index 1 are uzz."
+    },
+    {
+      "language": "Kotlin",
+      "difficulty": "Hard",
+      "code": "val a = listOf(1, 2, 3)\nprintln(a.filter { it % 2 == 1 }.map { it * it }.sum())",
+      "answer": "10",
+      "explanation": "1 and 3 stay. Their squares are 1 and 9, which add up to 10."
+    },
+    {
+      "language": "Ruby",
+      "difficulty": "Expert",
+      "code": "def shout(word = \"hey\")\n  word.upcase\nend\nputs shout\nputs shout(\"ok\")",
+      "answer": "HEY OK",
+      "explanation": "Skip the argument and the default is used. upcase then shouts both words."
+    },
+    {
+      "language": "JavaScript",
+      "difficulty": "Quirk",
+      "code": "console.log(1 + \"2\" + 3, 1 + 2 + \"3\");",
+      "answer": "123 33",
+      "explanation": "+ runs left to right. Once a string appears, the rest is glued on as text. The second one adds the numbers before it hits a string."
+    }
+  ],
+  [
+    {
+      "language": "R",
+      "difficulty": "Easy",
+      "code": "cat(sum(1:4))",
+      "answer": "10",
+      "explanation": "1:4 is 1, 2, 3, 4. cat prints their sum."
+    },
+    {
+      "language": "Go",
+      "difficulty": "Medium",
+      "code": "fmt.Println(\"go\"[0])",
+      "answer": "103",
+      "explanation": "Indexing a string yields a byte, and fmt prints that byte as a number. 'g' is 103."
+    },
+    {
+      "language": "PHP",
+      "difficulty": "Hard",
+      "code": "echo 8 <=> 3, \" \", 3 <=> 3, \" \", 2 <=> 9;",
+      "answer": "1 0 -1",
+      "explanation": "<=> is -1, 0 or 1 depending on which side is larger."
+    },
+    {
+      "language": "Rust",
+      "difficulty": "Expert",
+      "code": "let s = \"cargo\";\nprintln!(\"{}\", s.chars().filter(|c| *c != 'a').collect::<String>());",
+      "answer": "crgo",
+      "explanation": "Every character that is not 'a' is kept, in order."
+    },
+    {
+      "language": "Python",
+      "difficulty": "Quirk",
+      "code": "print(False == 0, True == 1, True == 2)",
+      "answer": "True True False",
+      "explanation": "Booleans are numbers underneath. True is 1, so it matches 1 and not 2."
+    }
+  ],
+  [
+    {
+      "language": "Haskell",
+      "difficulty": "Easy",
+      "code": "main = putStrLn (reverse \"flow\")",
+      "answer": "wolf",
+      "explanation": "reverse flips the characters. putStrLn prints them without extra quotes."
+    },
+    {
+      "language": "Java",
+      "difficulty": "Medium",
+      "code": "StringBuilder sb = new StringBuilder(\"ok\");\nsb.insert(1, \"a\");\nSystem.out.println(sb);",
+      "answer": "oak",
+      "explanation": "insert puts the text at that index and shifts the rest right. Index 1 sits between o and k."
+    },
+    {
+      "language": "Swift",
+      "difficulty": "Hard",
+      "code": "let n = [10, 20, 30, 40]\nprint(n.dropFirst(2).reduce(0, +))",
+      "answer": "70",
+      "explanation": "dropFirst throws away 10 and 20. reduce adds what is left: 30 + 40."
+    },
+    {
+      "language": "C",
+      "difficulty": "Expert",
+      "code": "char s[] = \"hi\";\nprintf(\"%d\", (int)sizeof(s));",
+      "answer": "3",
+      "explanation": "The array includes the hidden terminator. h, i and the trailing zero make 3."
+    },
+    {
+      "language": "Ruby",
+      "difficulty": "Quirk",
+      "code": "puts \"a-b-c\".split(\"-\").reverse.join(\":\")",
+      "answer": "c:b:a",
+      "explanation": "split breaks on the dash, reverse flips the parts, and join puts a colon between them."
+    }
+  ],
+  [
+    {
+      "language": "Elixir",
+      "difficulty": "Easy",
+      "code": "IO.puts(String.length(\"héllo\"))",
+      "answer": "5",
+      "explanation": "String.length counts characters. é is one of them."
+    },
+    {
+      "language": "Bash",
+      "difficulty": "Medium",
+      "code": "echo $((2 ** 10))",
+      "answer": "1024",
+      "explanation": "2 to the power 10 is 1024, a kibibyte of bytes."
+    },
+    {
+      "language": "JavaScript",
+      "difficulty": "Hard",
+      "code": "console.log(\"Terminle\".slice(-3).toUpperCase());",
+      "answer": "MLE",
+      "explanation": "A negative slice counts back from the end, so the last three letters are mle. toUpperCase shouts them."
+    },
+    {
+      "language": "Lua",
+      "difficulty": "Expert",
+      "code": "function f()\n  return 1, 2, 3\nend\nprint(f(), 9)",
+      "answer": "1 9",
+      "explanation": "Only the last call in a list keeps every return value. f() is not last, so just 1 is kept."
+    },
+    {
+      "language": "C#",
+      "difficulty": "Quirk",
+      "code": "Console.WriteLine(10 / 4 * 4);",
+      "answer": "8",
+      "explanation": "Both operators share a precedence and run left to right. 10 / 4 is 2, then 2 * 4 is 8."
+    }
+  ],
+  [
+    {
+      "language": "Kotlin",
+      "difficulty": "Easy",
+      "code": "println(\"Kotlin\".take(3))",
+      "answer": "Kot",
+      "explanation": "take(3) keeps the first three characters."
+    },
+    {
+      "language": "SQLite",
+      "difficulty": "Medium",
+      "code": "SELECT INSTR('database', 'tab');",
+      "answer": "3",
+      "explanation": "INSTR is 1-based. 'tab' starts at the third character. The answer is that one cell."
+    },
+    {
+      "language": "Go",
+      "difficulty": "Hard",
+      "code": "s := \"go-lang\"\ni := strings.Index(s, \"-\")\nfmt.Println(s[:i], s[i+1:])",
+      "answer": "go lang",
+      "explanation": "Index finds the dash. The slices take everything before it and everything after it."
+    },
+    {
+      "language": "Python",
+      "difficulty": "Expert",
+      "code": "print(pow(2, 10, 100))",
+      "answer": "24",
+      "explanation": "The third argument is the modulus. 2 ** 10 is 1024, and the last two digits are 24."
+    },
+    {
+      "language": "JavaScript",
+      "difficulty": "Quirk",
+      "code": "console.log(Math.min());",
+      "answer": "Infinity",
+      "explanation": "With no arguments, min starts at the largest possible value so any real number would be smaller."
+    }
+  ],
+  [
+    {
+      "language": "Perl",
+      "difficulty": "Easy",
+      "code": "print ucfirst(\"perl\");",
+      "answer": "Perl",
+      "explanation": "ucfirst capitalizes the first character and leaves the rest alone."
+    },
+    {
+      "language": "Rust",
+      "difficulty": "Medium",
+      "code": "let s = \"ship\";\nprintln!(\"{}\", &s[1..3]);",
+      "answer": "hi",
+      "explanation": "The range starts at index 1 and stops before 3, so the bytes are h and i."
+    },
+    {
+      "language": "PHP",
+      "difficulty": "Hard",
+      "code": "$a = [10, 20, 30];\necho implode(\"-\", array_reverse($a));",
+      "answer": "30-20-10",
+      "explanation": "array_reverse flips the order, then implode joins the items with a dash."
+    },
+    {
+      "language": "TypeScript",
+      "difficulty": "Expert",
+      "code": "function mystery(n: number): number {\n  if (n < 3) return n;\n  return mystery(n - 1) + mystery(n - 2);\n}\nconsole.log(mystery(6));",
+      "answer": "13",
+      "explanation": "Below 3 the function returns n itself, so 2 stays 2. After that: 3, 5, 8, 13."
+    },
+    {
+      "language": "Haskell",
+      "difficulty": "Quirk",
+      "code": "main = print (take 4 [n * n | n <- [1..]])",
+      "answer": "[1,4,9,16]",
+      "explanation": "The list of squares goes on forever. take keeps the first four, and Haskell prints them without spaces."
+    }
+  ],
+  [
+    {
+      "language": "Dart",
+      "difficulty": "Easy",
+      "code": "print(10 ~/ 3);",
+      "answer": "3",
+      "explanation": "~/ divides and throws away the fraction. 10 / 3 would have kept it."
+    },
+    {
+      "language": "Java",
+      "difficulty": "Medium",
+      "code": "System.out.println(String.join(\"-\", \"a\", \"b\", \"c\"));",
+      "answer": "a-b-c",
+      "explanation": "join places the separator between the parts and nowhere else."
+    },
+    {
+      "language": "Ruby",
+      "difficulty": "Hard",
+      "code": "s = \"race\"\nputs s.reverse.upcase",
+      "answer": "ECAR",
+      "explanation": "reverse flips the letters, then upcase shouts every one of them."
+    },
+    {
+      "language": "C",
+      "difficulty": "Expert",
+      "code": "int a = 7;\nint b = 2;\nprintf(\"%d\", a & b);",
+      "answer": "2",
+      "explanation": "7 is 111 in binary and 2 is 010. AND keeps only the bits both share, which is 2."
+    },
+    {
+      "language": "Python",
+      "difficulty": "Quirk",
+      "code": "print(\" \".join(w[::-1] for w in \"live code\".split()))",
+      "answer": "evil edoc",
+      "explanation": "split breaks on the space. Each word is reversed, then join puts one space back between them."
+    }
+  ],
+  [
+    {
+      "language": "Scala",
+      "difficulty": "Easy",
+      "code": "println(\"yo\" * 3)",
+      "answer": "yoyoyo",
+      "explanation": "Multiplying a string repeats it."
+    },
+    {
+      "language": "Go",
+      "difficulty": "Medium",
+      "code": "s := \"brb\"\nfmt.Println(s[:2])",
+      "answer": "br",
+      "explanation": "Slicing a string keeps the bytes from the start index up to, but not including, the end."
+    },
+    {
+      "language": "JavaScript",
+      "difficulty": "Hard",
+      "code": "console.log([...\"hi\", ...\"yo\"].join(\"\"));",
+      "answer": "hiyo",
+      "explanation": "Spreading a string yields its characters. Joining with an empty string glues them back."
+    },
+    {
+      "language": "Swift",
+      "difficulty": "Expert",
+      "code": "let xs = [1, 2, 3, 4]\nlet n = xs.filter { $0 > 2 }.map { $0 * 10 }.reduce(0, +)\nprint(n)",
+      "answer": "70",
+      "explanation": "3 and 4 survive. Times 10 they are 30 and 40, and the reduce adds those."
+    },
+    {
+      "language": "Lua",
+      "difficulty": "Quirk",
+      "code": "t = {\"a\", \"b\", \"c\"}\nprint(table.concat(t, \"-\", 2))",
+      "answer": "b-c",
+      "explanation": "concat joins from the given index through the end. Lists start at 1, so index 2 skips a."
+    }
+  ],
+  [
+    {
+      "language": "C#",
+      "difficulty": "Easy",
+      "code": "Console.WriteLine(string.Concat(\"C\", \"#\"));",
+      "answer": "C#",
+      "explanation": "Concat glues the strings in order."
+    },
+    {
+      "language": "Python",
+      "difficulty": "Medium",
+      "code": "print(\" \".join([\"keep\", \"it\", \"fun\"]))",
+      "answer": "keep it fun",
+      "explanation": "join puts the separator between the words."
+    },
+    {
+      "language": "Rust",
+      "difficulty": "Hard",
+      "code": "let n = -7;\nprintln!(\"{}\", n / 2);",
+      "answer": "-3",
+      "explanation": "Rust divides integers toward zero. Python's // would have gone to -4 instead."
+    },
+    {
+      "language": "Elixir",
+      "difficulty": "Expert",
+      "code": "IO.inspect(Enum.reduce(1..4, 1, fn n, acc -> acc * n end))",
+      "answer": "24",
+      "explanation": "Starting from 1, the range multiplies in: 1 * 2 * 3 * 4."
+    },
+    {
+      "language": "Bash",
+      "difficulty": "Quirk",
+      "code": "name=code\necho ${name:1:2}",
+      "answer": "od",
+      "explanation": "The slice starts at index 1 and takes two characters. c is skipped, so od remains."
+    }
+  ],
+  [
+    {
+      "language": "Ruby",
+      "difficulty": "Easy",
+      "code": "puts [1, 2, 3].sum",
+      "answer": "6",
+      "explanation": "sum adds the array: 1 + 2 + 3."
+    },
+    {
+      "language": "Kotlin",
+      "difficulty": "Medium",
+      "code": "val s = \"puzzle\"\nprintln(s.substring(2, 5))",
+      "answer": "zzl",
+      "explanation": "The end index is exclusive. Indexes 2, 3 and 4 are z, z and l."
+    },
+    {
+      "language": "PHP",
+      "difficulty": "Hard",
+      "code": "$n = 0;\nfunction bump() {\n  global $n;\n  $n++;\n  return $n;\n}\necho bump() + bump();",
+      "answer": "3",
+      "explanation": "Each call increments the same global and returns the new value. The sum is 1 + 2."
+    },
+    {
+      "language": "Java",
+      "difficulty": "Expert",
+      "code": "StringBuilder sb = new StringBuilder(\"dev\");\nsb.append(\"s\").delete(1, 3);\nSystem.out.println(sb);",
+      "answer": "ds",
+      "explanation": "append adds the s first, so the text is devs. delete's end index is exclusive, which removes e and v."
+    },
+    {
+      "language": "JavaScript",
+      "difficulty": "Quirk",
+      "code": "console.log(parseInt(\"0x10\"));",
+      "answer": "16",
+      "explanation": "A 0x prefix is hexadecimal. 0x10 is sixteen."
+    }
+  ],
+  [
+    {
+      "language": "Haskell",
+      "difficulty": "Easy",
+      "code": "main = print (product [1, 2, 3, 4])",
+      "answer": "24",
+      "explanation": "product multiplies the list: 1 * 2 * 3 * 4."
+    },
+    {
+      "language": "Go",
+      "difficulty": "Medium",
+      "code": "fmt.Println(strings.Replace(\"banana\", \"a\", \"o\", 2))",
+      "answer": "bonona",
+      "explanation": "The last argument is how many matches to change. Two a's become o, and the final a stays."
+    },
+    {
+      "language": "C",
+      "difficulty": "Hard",
+      "code": "printf(\"%c%c\", 'a' + 1, 'z' - 1);",
+      "answer": "by",
+      "explanation": "Letters sit on a number line. One past a is b, one before z is y, and %c prints those letters."
+    },
+    {
+      "language": "Rust",
+      "difficulty": "Expert",
+      "code": "let v = vec![1, 2, 3];\nlet s: i32 = v.iter().map(|x| x * x).sum();\nprintln!(\"{}\", s);",
+      "answer": "14",
+      "explanation": "Each number is squared first: 1, 4 and 9. Their sum is 14."
+    },
+    {
+      "language": "Python",
+      "difficulty": "Quirk",
+      "code": "print(True + True)",
+      "answer": "2",
+      "explanation": "True is 1 when used as a number. 1 + 1 is 2."
+    }
+  ],
+  [
+    {
+      "language": "Swift",
+      "difficulty": "Easy",
+      "code": "print([1, 2, 3].count)",
+      "answer": "3",
+      "explanation": "count is the number of elements."
+    },
+    {
+      "language": "TypeScript",
+      "difficulty": "Medium",
+      "code": "const score = { win: 1, lose: 0 };\nconsole.log(Object.values(score).reduce((a, b) => a + b, 0));",
+      "answer": "1",
+      "explanation": "The values are 1 and 0. reduce adds them."
+    },
+    {
+      "language": "Ruby",
+      "difficulty": "Hard",
+      "code": "puts \"banana\".chars.uniq.join",
+      "answer": "ban",
+      "explanation": "uniq drops later copies of a letter. The first a stays and the rest go."
+    },
+    {
+      "language": "C#",
+      "difficulty": "Expert",
+      "code": "int[] xs = { 1, 2, 3 };\nConsole.WriteLine(xs.Where(n => n > 1).Select(n => n * n).Sum());",
+      "answer": "13",
+      "explanation": "2 and 3 remain. Their squares are 4 and 9, and Sum adds those."
+    },
+    {
+      "language": "Perl",
+      "difficulty": "Quirk",
+      "code": "print 2 x 3;",
+      "answer": "222",
+      "explanation": "x repeats the left side as text. 2 becomes \"2\" and is repeated three times. * would have multiplied."
+    }
+  ],
+  [
+    {
+      "language": "Lua",
+      "difficulty": "Easy",
+      "code": "print(10 % 3)",
+      "answer": "1",
+      "explanation": "% is the remainder. 10 divided by 3 leaves 1."
+    },
+    {
+      "language": "Java",
+      "difficulty": "Medium",
+      "code": "System.out.println(new StringBuilder(\"ab\").reverse());",
+      "answer": "ba",
+      "explanation": "reverse flips the builder's characters."
+    },
+    {
+      "language": "Python",
+      "difficulty": "Hard",
+      "code": "print(list(zip(\"ab\", \"xyz\")))",
+      "answer": "[('a', 'x'), ('b', 'y')]",
+      "explanation": "zip stops when the shortest input runs out, so the z is never paired."
+    },
+    {
+      "language": "Go",
+      "difficulty": "Expert",
+      "code": "fmt.Println(3 / 2, 3.0 / 2)",
+      "answer": "1 1.5",
+      "explanation": "Two integers divide to an integer. A float on either side keeps the fraction."
+    },
+    {
+      "language": "JavaScript",
+      "difficulty": "Quirk",
+      "code": "console.log(2 ** 3 ** 2);",
+      "answer": "512",
+      "explanation": "** groups to the right. This is 2 ** (3 ** 2), which is 2 ** 9, not (2 ** 3) ** 2."
+    }
+  ],
+  [
+    {
+      "language": "PHP",
+      "difficulty": "Easy",
+      "code": "echo strtoupper(\"php\");",
+      "answer": "PHP",
+      "explanation": "strtoupper capitalizes every letter."
+    },
+    {
+      "language": "Rust",
+      "difficulty": "Medium",
+      "code": "println!(\"{}\", [1, 2, 3, 4].into_iter().filter(|n| n % 2 == 0).count());",
+      "answer": "2",
+      "explanation": "2 and 4 are even, so two items remain."
+    },
+    {
+      "language": "Kotlin",
+      "difficulty": "Hard",
+      "code": "val s = \"kotlin\"\nprintln(s.drop(2).dropLast(1))",
+      "answer": "tli",
+      "explanation": "drop removes from the front and dropLast from the back. tlin loses its last letter and tli remains."
+    },
+    {
+      "language": "Haskell",
+      "difficulty": "Expert",
+      "code": "main = print (foldl (-) 10 [1, 2, 3])",
+      "answer": "4",
+      "explanation": "foldl starts at the left: ((10 - 1) - 2) - 3. foldr would not give the same number."
+    },
+    {
+      "language": "Ruby",
+      "difficulty": "Quirk",
+      "code": "puts 5.div(2), 5.fdiv(2)",
+      "answer": "2 2.5",
+      "explanation": "div stays on integers and drops the fraction. fdiv returns a float."
+    }
+  ],
+  [
+    {
+      "language": "Bash",
+      "difficulty": "Easy",
+      "code": "echo $((4 * 5))",
+      "answer": "20",
+      "explanation": "$(( )) evaluates the arithmetic. 4 times 5 is 20."
+    },
+    {
+      "language": "C",
+      "difficulty": "Medium",
+      "code": "printf(\"%d\", 1 + 2 * 3);",
+      "answer": "7",
+      "explanation": "Multiplication happens before addition. 2 * 3 is 6, then plus 1 is 7."
+    },
+    {
+      "language": "Elixir",
+      "difficulty": "Hard",
+      "code": "IO.inspect(Enum.filter(1..5, fn n -> rem(n, 2) == 0 end))",
+      "answer": "[2, 4]",
+      "explanation": "rem is the remainder. The even numbers in the range are 2 and 4."
+    },
+    {
+      "language": "JavaScript",
+      "difficulty": "Expert",
+      "code": "console.log([1, 2, 3].flatMap(n => [n, n]));",
+      "answer": "1,1,2,2,3,3",
+      "explanation": "flatMap swaps each item for a little array, then flattens one level. Logging an array joins it with commas."
+    },
+    {
+      "language": "Python",
+      "difficulty": "Quirk",
+      "code": "print(bool([]), bool([0]), bool(\"\"), bool(\"0\"))",
+      "answer": "False True False True",
+      "explanation": "An empty list and an empty string are falsy. [0] and \"0\" still contain something, so they are true."
+    }
+  ],
+  [
+    {
+      "language": "Scala",
+      "difficulty": "Easy",
+      "code": "println(List(1, 2, 3, 4).filter(_ % 2 == 0).sum)",
+      "answer": "6",
+      "explanation": "2 and 4 are even. Their sum is 6."
+    },
+    {
+      "language": "Go",
+      "difficulty": "Medium",
+      "code": "fmt.Println(strings.ToUpper(\"go\") + strings.ToLower(\"LANG\"))",
+      "answer": "GOlang",
+      "explanation": "ToUpper and ToLower change case, then + glues the two pieces into one word."
+    },
+    {
+      "language": "C#",
+      "difficulty": "Hard",
+      "code": "string s = \"csharp\";\nConsole.WriteLine(s.Remove(1, 3));",
+      "answer": "crp",
+      "explanation": "Remove takes a start and a count. Three characters from index 1 disappear, leaving crp."
+    },
+    {
+      "language": "Swift",
+      "difficulty": "Expert",
+      "code": "let s = \"swift\"\nprint(s.dropFirst().dropLast().uppercased())",
+      "answer": "WIF",
+      "explanation": "dropFirst and dropLast peel one character off each end. uppercased then shouts what is left."
+    },
+    {
+      "language": "SQLite",
+      "difficulty": "Quirk",
+      "code": "SELECT REPLACE('banana', 'a', 'o');",
+      "answer": "bonono",
+      "explanation": "REPLACE changes every match, not just the first. The answer is that one cell."
+    }
+  ],
+  [
+    {
+      "language": "Dart",
+      "difficulty": "Easy",
+      "code": "print(\"flow\".split(\"\").reversed.join());",
+      "answer": "wolf",
+      "explanation": "split(\"\") makes the characters, reversed flips them, and join glues them back."
+    },
+    {
+      "language": "Rust",
+      "difficulty": "Medium",
+      "code": "println!(\"{}\", \"rust\".chars().rev().collect::<String>());",
+      "answer": "tsur",
+      "explanation": "chars splits into characters, rev flips the order, and collect builds the string."
+    },
+    {
+      "language": "Python",
+      "difficulty": "Hard",
+      "code": "a = (1, [2])\na[1].append(3)\nprint(a)",
+      "answer": "(1, [2, 3])",
+      "explanation": "The tuple cannot be resized, but the list inside it can. append changes that inner list."
+    },
+    {
+      "language": "JavaScript",
+      "difficulty": "Expert",
+      "code": "console.log(0.1 + 0.2);",
+      "answer": "0.30000000000000004",
+      "explanation": "0.1 and 0.2 have no exact binary fraction. Their sum is a hair over 0.3."
+    },
+    {
+      "language": "Go",
+      "difficulty": "Quirk",
+      "code": "fmt.Println(cap([]int{1, 2, 3}[:0]))",
+      "answer": "3",
+      "explanation": "The length of [:0] is zero, but the capacity still reaches the end of the original slice."
     }
   ]
 ]

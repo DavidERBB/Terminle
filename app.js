@@ -1,5 +1,5 @@
 const MAX_TRIES = 3;
-const START = Date.UTC(2026, 10, 18);
+const START = Date.UTC(2026, 11, 19);
 const KEY = "terminle-save";
 
 const $ = (id) => document.getElementById(id);
@@ -155,10 +155,17 @@ function publishMeta() {
 }
 
 // Syntax highlighting
-const EXT = { javascript: "js", python: "py", go: "go", c: "c", rust: "rs" };
+const EXT = {
+    javascript: "js", python: "py", go: "go", c: "c", rust: "rs",
+    java: "java", "c#": "cs", ruby: "rb", php: "php", swift: "swift",
+    kotlin: "kt", typescript: "ts", bash: "sh", lua: "lua", sqlite: "sql",
+    elixir: "ex", scala: "scala", haskell: "hs", dart: "dart", perl: "pl", r: "r",
+};
 
 const COMMENT_SLASH = /\/\/.*|\/\*.*?\*\//.source;
 const COMMENT_HASH = /#.*/.source;
+const COMMENT_DASH = /--.*/.source;
+const COMMENT_PHP = /#.*|\/\/.*|\/\*.*?\*\//.source;
 const STR_DOUBLE = /"(?:\\.|[^"\\])*"/.source;
 const STR_SINGLE = /'(?:\\.|[^'\\])*'/.source;
 const STR_BACKTICK = /`(?:\\.|[^`\\])*`/.source;
@@ -199,6 +206,86 @@ const SYNTAX = {
         regex: tokenRegex(COMMENT_SLASH, STR_DOUBLE, CHAR),
         keywords: words("as async await break const continue crate dyn else enum extern false fn for if impl in let loop match mod move mut pub ref return self Self static struct super trait true type unsafe use where while"),
         builtins: words("i8 i16 i32 i64 i128 isize u8 u16 u32 u64 u128 usize f32 f64 bool char str String Vec Option Some None Ok Err Result Box"),
+    },
+    java: {
+        regex: tokenRegex(COMMENT_SLASH, STR_DOUBLE, STR_SINGLE),
+        keywords: words("if else for while do switch case default break continue return new class interface extends implements public private protected static final void int long double float boolean char byte short true false null this super try catch finally throw import package var"),
+        builtins: words("System String Integer Math StringBuilder"),
+    },
+    "c#": {
+        regex: tokenRegex(COMMENT_SLASH, STR_DOUBLE, STR_SINGLE),
+        keywords: words("if else for while do switch case default break continue return new class interface public private protected static void int long double float bool char byte short true false null this var string using namespace"),
+        builtins: words("Console string String Math Enumerable"),
+    },
+    ruby: {
+        regex: tokenRegex(COMMENT_HASH, STR_DOUBLE, STR_SINGLE),
+        keywords: words("def end if elsif else unless for while do class module return yield true false nil self begin rescue ensure and or not"),
+        builtins: words("puts print p gets require"),
+    },
+    php: {
+        regex: tokenRegex(COMMENT_PHP, STR_DOUBLE, STR_SINGLE),
+        keywords: words("if else elseif for while do switch case default break continue return function class public private protected static new echo print true false null and or"),
+        builtins: words("strlen strrev strtoupper count in_array"),
+    },
+    swift: {
+        regex: tokenRegex(COMMENT_SLASH, STR_DOUBLE, STR_SINGLE),
+        keywords: words("if else for while switch case default break continue return func let var struct class enum true false nil self guard import in"),
+        builtins: words("print String Int Array"),
+    },
+    kotlin: {
+        regex: tokenRegex(COMMENT_SLASH, STR_DOUBLE, STR_SINGLE),
+        keywords: words("if else for while do when break continue return fun val var class object interface true false null this in is"),
+        builtins: words("println listOf mutableMapOf"),
+    },
+    typescript: {
+        regex: tokenRegex(COMMENT_SLASH, STR_DOUBLE, STR_SINGLE, STR_BACKTICK),
+        keywords: words("const let var function return if else for while do class extends new this typeof instanceof await async true false null undefined type interface implements public private protected readonly as number string boolean void"),
+        builtins: words("console Math Object Array Number String"),
+    },
+    bash: {
+        regex: tokenRegex(COMMENT_HASH, STR_DOUBLE, STR_SINGLE),
+        keywords: words("if then else elif fi for while do done case esac in echo local return"),
+        builtins: words("echo printf"),
+    },
+    lua: {
+        regex: tokenRegex(COMMENT_DASH, STR_DOUBLE, STR_SINGLE),
+        keywords: words("if then else elseif end for while do function return local and or not true false nil in repeat until"),
+        builtins: words("print type tostring tonumber"),
+    },
+    sqlite: {
+        regex: tokenRegex(COMMENT_DASH, STR_DOUBLE, STR_SINGLE),
+        keywords: words("SELECT FROM WHERE AND OR NOT NULL AS INSERT INTO VALUES UPDATE SET DELETE CREATE TABLE INTEGER TEXT"),
+        builtins: words("SUBSTR INSTR typeof LENGTH REPLACE TRIM"),
+    },
+    elixir: {
+        regex: tokenRegex(COMMENT_HASH, STR_DOUBLE, STR_SINGLE),
+        keywords: words("def defp if else do end case cond fn true false nil when"),
+        builtins: words("IO Enum String"),
+    },
+    scala: {
+        regex: tokenRegex(COMMENT_SLASH, STR_DOUBLE, STR_SINGLE),
+        keywords: words("if else for while do yield return val var def class object trait true false null new extends with match case"),
+        builtins: words("println List Array"),
+    },
+    haskell: {
+        regex: tokenRegex(COMMENT_DASH, STR_DOUBLE, STR_SINGLE),
+        keywords: words("if then else let in where do case of module import data type True False"),
+        builtins: words("print putStrLn sum product reverse head filter length foldl map"),
+    },
+    dart: {
+        regex: tokenRegex(COMMENT_SLASH, STR_DOUBLE, STR_SINGLE),
+        keywords: words("if else for while do switch case default break continue return var final const class true false null new this void"),
+        builtins: words("print"),
+    },
+    perl: {
+        regex: tokenRegex(COMMENT_HASH, STR_DOUBLE, STR_SINGLE),
+        keywords: words("if else elsif unless for while do my our sub return last next print say"),
+        builtins: words("print length reverse uc"),
+    },
+    r: {
+        regex: tokenRegex(COMMENT_HASH, STR_DOUBLE, STR_SINGLE),
+        keywords: words("if else for while in function return TRUE FALSE NULL NA"),
+        builtins: words("cat print sum c"),
     },
 };
 
