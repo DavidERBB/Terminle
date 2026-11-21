@@ -1,5 +1,5 @@
 const MAX_TRIES = 3;
-const START = Date.UTC(2026, 11, 19);
+const START = Date.UTC(2026, 10, 19);
 const KEY = "terminle-save";
 
 const $ = (id) => document.getElementById(id);
